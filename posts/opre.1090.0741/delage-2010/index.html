@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PR01-Distributionally Robust Optimization Under Moment Uncertainty | CO2 Generator</title>
+<meta name="keywords" content="">
+<meta name="description" content="Moment-based DRO">
+<meta name="author" content="co2generator">
+<link rel="canonical" href="http://co2generator.github.io/posts/opre.1090.0741/delage-2010/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.ec8da366ca2fb647537ccb7a8f6fa5b4e9cd3c7a0d3171dd2d3baad1e49c8bfc.css" integrity="sha256-7I2jZsovtkdTfMt6j2&#43;ltOnNPHoNMXHdLTuq0eSci/w=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://co2generator.github.io/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://co2generator.github.io/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://co2generator.github.io/img/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://co2generator.github.io/img/apple-touch-icon.png">
+<link rel="mask-icon" href="http://co2generator.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  <script type="text/javascript">
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+    },
+  };
+</script>
+<script
+    async
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"
+    integrity="sha384-+BSz3oj3ILMYvOBr16U9i0H4RZRmGyQQ+1q9eqr8T3skmAFrJk8GmgwgqlCZdNSo"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+<meta property="og:title" content="PR01-Distributionally Robust Optimization Under Moment Uncertainty" />
+<meta property="og:description" content="Moment-based DRO" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://co2generator.github.io/posts/opre.1090.0741/delage-2010/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-20T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-05-20T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PR01-Distributionally Robust Optimization Under Moment Uncertainty"/>
+<meta name="twitter:description" content="Moment-based DRO"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://co2generator.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "PR01-Distributionally Robust Optimization Under Moment Uncertainty",
+      "item": "http://co2generator.github.io/posts/opre.1090.0741/delage-2010/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PR01-Distributionally Robust Optimization Under Moment Uncertainty",
+  "name": "PR01-Distributionally Robust Optimization Under Moment Uncertainty",
+  "description": "Moment-based DRO",
+  "keywords": [
+    
+  ],
+  "articleBody": "1 Background $$ \\mathop{\\text{minimize}}\\limits_{\\pmb{x} \\in \\mathscr{X}} \\ h(\\pmb{x}, \\pmb{\\xi}) \\tag{1} $$ in which, $\\mathscr{X}$ is a convex set of feasible solutions and $h(\\pmb{x}, \\pmb{\\xi})$ is a convex cost function in $\\pmb{x}$ that depends on some vector of parameters $\\pmb{\\xi}$. In practice, it is often the case that at the time of optimization, the parameters have not yet been fully resolved.\nIf one choose to represent the uncertainty of $\\pmb{\\xi}$ through a distribution $F$, one can instead resort to minimizing the expected cost. This leads to solving a stochastic program, $$ (\\text{SP}) \\quad \\mathop{\\text{minimize}} \\limits_{\\pmb{x} \\in \\mathscr{X}} \\ \\mathbb{E}[h(\\pmb{x}, \\pmb{\\xi})] \\tag{2} $$\nin which the expectation is taken with respect to the random parameters $\\pmb{\\xi} \\in \\mathbb{R}^m$, given that it follows the probability distribution $F$. But unfortunately, although the SP is a convex optimization problem, to solve it one must often resort to Monte Carlo approximation, which can be computationally challenging. A more challenging difficulty is the need to commit to a distribution $F$ given only limited information about the stochastic parameters.\nTo address these issues, a robust formulation for SP was proposed by Scarf(1958). In this model, the true distribution $F$ is assumed to be included in a set of probability distributions $\\mathscr{D}$. And the objective function is reformulated with respect to he worst case expected cost over the choice of a distribution in this set. This leads to solving the distributionally robust stochastic program, $$ (\\text{DRSP}) \\quad \\mathop{\\text{minimize}} \\limits_{\\pmb{x} \\in \\mathscr{X}} \\left(\\max_{F \\in \\mathscr{D}} \\mathbb{E}_{F} [h(\\pmb{x}, \\pmb{\\xi})] \\right) \\tag{3} $$\nin which $\\mathbb{E}_F[\\cdot]$ is the expectation taken with respect to the random vector $\\pmb{\\xi}$, given that it follows the probability distribution $F$.\n2 Motivation Since the information about the distribution $F$ is limited, it might instead be safer to rely on estimated of the mean $\\pmb{\\mu}_0$ and covariance matrix $\\pmb{\\Sigma}_0$ of the random vector.\nHowever, it is believed that it is rarely the case that one is entirely confident in these estimates. Hence, the authors proposed two hyper-parameters $\\gamma_1$ and $\\gamma_2$ to quantifying one’s confidence in $\\pmb{\\mu}_0$ and $\\pmb{\\Sigma}_0$.\n  For the mean of $\\pmb{\\xi}$, they assumed that it lies in an ellipsoid of size $\\gamma_1$ centered at the estimate $\\pmb{\\mu}_0$, $$ (\\mathbb{E}[\\pmb{\\xi}] - \\pmb{\\mu}_0)^\\top \\pmb{\\Sigma}_0^{-1} (\\mathbb{E}[\\pmb{\\xi}] - \\pmb{\\mu}_0) \\leq \\gamma_1 \\tag{4} $$\n  For the covariance of $\\pmb{\\xi}$, the so-called second-moment is used, $$ \\mathbb{E}[(\\pmb{\\xi} - \\pmb{\\mu}_0) (\\pmb{\\xi} - \\pmb{\\mu}_0)^\\top] \\preceq \\gamma_2 \\pmb{\\Sigma}_0 \\tag{5} $$\n  Totally, the distributional set is formulated as, $$ \\mathscr{D}_1 (\\mathscr{S}, \\pmb{\\mu}_0, \\pmb{\\Sigma}_0, \\gamma_1, \\gamma_2) = \\left \\lbrace \\begin{aligned} F \\in \\mathscr{M} \\left| \\begin{aligned} \\ \u0026 \\mathbb{P}(\\pmb{\\xi} \\in \\mathscr{S}) = 1 \\newline \u0026 (\\mathbb{E}[\\pmb{\\xi}] - \\pmb{\\mu}_0)^\\top \\pmb{\\Sigma}_0^{-1} (\\mathbb{E}[\\pmb{\\xi}] - \\pmb{\\mu}_0) \\leq \\gamma_1\\newline \u0026 \\mathbb{E}[(\\pmb{\\xi} - \\pmb{\\mu}_0) (\\pmb{\\xi} - \\pmb{\\mu}_0)^\\top] \\preceq \\gamma_2 \\pmb{\\Sigma}_0 \\end{aligned} \\right. \\end{aligned}\\right \\rbrace \\tag{6} $$ in which $\\mathscr{M}$ is the set of probability measures, $\\mathscr{S}$ is any closed convex set known to contain the support of $F$.\n3 Distributionally Robust Stochastic Optimization Consider the following DRSP model under the distributional set $\\mathscr{D}_1$,\n$$ (\\text{DRSP}) \\quad \\mathop{\\text{minimize}} \\limits_{\\pmb{x} \\in \\mathscr{X}} \\left( \\max_{F \\in \\mathscr{D}_1} \\mathbb{E}_{F} [h(\\pmb{x}, \\pmb{\\xi})] \\right) \\tag{7} $$ The authors analyzed the computation complexity of the inner moment problem and addressed the tractable solution method of the whole problem.\n3.1 Complexity of the Inner Moment Problem Let $\\Psi(\\pmb{x}, \\gamma_1, \\gamma_2)$ be the optimal value of the moment problem, $$ \\mathop{\\text{maximize}} \\limits_{F \\in \\mathscr{D}_1} \\quad \\mathbb{E}_F[h(\\pmb{x}, \\pmb{\\xi})] \\tag{8} $$ It also can be described as the conic linear problem, $$ \\begin{aligned} \\mathop{\\text{maximize}}\\limits_{F} \\quad \u0026 \\int_{\\mathscr{S}} h(\\pmb{x}, \\pmb{\\xi}) dF(\\pmb{\\xi}) \\newline \\mathop{\\text{subject to}} \\quad \u0026 \\left\\lbrace \\begin{aligned} \u0026 \\int_{\\mathscr{S}} dF(\\pmb{\\xi}) = 1, \\newline \u0026 \\int_{\\mathscr{S}} (\\pmb{\\xi} - \\pmb{\\mu}_0) (\\pmb{\\xi} - \\pmb{\\mu}_0)^\\top dF(\\pmb{\\xi}) \\preceq \\gamma_2 \\pmb{\\Sigma}_0, \\newline \u0026 \\int_{\\mathscr{S}} \\begin{bmatrix} \\pmb{\\Sigma}_0 \u0026 (\\pmb{\\xi} - \\pmb{\\mu}_0) \\newline (\\pmb{\\xi} - \\pmb{\\mu}_0)^\\top \u0026 \\gamma_1 \\end{bmatrix} dF(\\pmb{\\xi}) \\succeq 0 \\newline \u0026 F \\in \\mathscr{M} \\end{aligned} \\right. \\end{aligned} \\tag{9} $$\n Theorem 1. For a fixed $\\pmb{x} \\in \\mathbb{R}^n$, suppose that $\\gamma_1 \\geq 0, \\gamma_2 \\geq 1, \\pmb{\\Sigma}_0 \\succ 0$, and that $h(\\pmb{x}, \\pmb{\\xi})$ is F-integrable for all $F \\in \\mathscr{D}_1$. Then $\\Psi(\\pmb{x}, \\gamma_1, \\gamma_2)$ must be equal to the optimal value of the problem,\n$$ \\begin{aligned} \\mathop{\\text{minimize}}\\limits_{\\mathbf{Q}, \\mathbf{q}, r, t} \\quad \u0026 r + t \\label{inner-obj} \\newline \\text{subject to} \\quad \u0026 \\left\\lbrace \\begin{aligned} \u0026 r \\geq h(\\pmb{x}, \\pmb{\\xi}) - \\pmb{\\xi}^\\top \\mathbf{Q} \\pmb{\\xi} - \\pmb{\\xi}^\\top \\mathbf{q}, \\qquad \\forall \\pmb{\\xi} \\in \\mathscr{S} \\newline \u0026 t \\geq (\\gamma_2 \\pmb{\\Sigma}_0 + \\pmb{\\mu}_0 \\pmb{\\mu}_0^\\top ) \\bullet \\mathbf{Q} + \\pmb{\\mu}_0^\\top \\mathbf{q} + \\sqrt{\\gamma_1} | \\pmb{\\Sigma}_0^{1 / 2} (\\mathbf{q} + 2 \\mathbf{Q}\\pmb{\\mu}_0) |, \\newline \u0026 \\mathbf{Q} \\succeq 0 \\end{aligned} \\right. \\label{inner-cons} \\end{aligned} \\tag{10} $$\nin which $(\\pmb{A} \\bullet \\pmb{B}) $ refers to the Frobenius inner product between matrices, $\\mathbf{Q} \\in \\mathbb{R}^{m \\times m}$ is a symmetric matrix, the vector $\\mathbf{q} \\in \\mathbb{R}^m$, and $r, t \\in \\mathbb{R}$.\n  Lemma 1. (Grotschel et al. (1981)) Consider a convex optimization problem of the form, $$ \\mathop{\\text{minimize}} \\limits_{\\pmb{z} \\in \\mathscr{Z}} \\ \\pmb{c}^\\top \\pmb{z} $$ with linear objective and convex feasible set $\\mathscr{Z}$. Given that the set of optimal solutions is nonempty, the problem can be solved to any precision $\\epsilon$ in time polynomial in $\\log(1 / \\epsilon)$ and in the size of the problem by using ellipsoid method is and only if $\\mathscr{Z}$ satisfies the following two conditions:\n for any $\\bar{\\pmb{z}}$, it can be verified whether $\\bar{\\pmb{z}} \\in \\mathscr{Z}$ or not in time polynomial in the dimension of $\\pmb{z}$ for any infeasible $\\bar{\\pmb{z}}$, a hyperplane that separates $\\bar{\\pmb{z}}$ from the feasible set $\\mathscr{Z}$ can be generated in time polynomial in the dimension of $\\pmb{z}$.    Assumption 1. The support set $\\mathscr{S} \\subset \\mathbb{R}^m$ is convex and compact, and it is equipped with an oracle that can for any $\\pmb{\\xi} \\in \\mathbb{R}^m$ either confirm that $\\pmb{\\xi} \\in \\mathscr{S}$ or provide a hyperplane that separates $\\pmb{\\xi}$ from $\\mathscr{S}$ in time polynomial in m.\n  Assumption 2. The function $h(\\pmb{x}, \\pmb{\\xi})$ has the form $h(\\pmb{x}, \\pmb{\\xi}) = \\max_{k \\in \\left\\lbrace 1, …, K\\right\\rbrace} h_k(\\pmb{x}, \\pmb{\\xi})$ such that for each $k, h_k(\\pmb{x}, \\pmb{\\xi})$ is concave in $\\pmb{\\xi}$. In addition, given a pair $(\\pmb{x}, \\pmb{\\xi})$, it is assumed that one can in polynomial time:\n evaluate the value of $h_k(\\pmb{x}, \\pmb{\\xi}) $ find a supergradient of $h_k(\\pmb{x}, \\pmb{\\xi})$ in $\\pmb{\\xi}$  Furthermore, for any $\\pmb{x} \\in \\mathbb{R}^n, \\pmb{q} \\in \\mathbb{R}^m$, and ay positive semidefinite $\\mathbf{Q} \\in \\mathbb{R}^{m \\times m}$, the set $\\left\\lbrace y \\in \\mathbb{R} | \\exists \\pmb{\\xi} \\in \\mathscr{S}, y \\leq h(\\pmb{x}, \\pmb{\\xi}) - \\pmb{q}^\\top \\pmb{\\xi} - \\pmb{\\xi}^\\top \\mathbf{Q} \\pmb{\\xi} \\right\\rbrace$ is closed.\n  Theorem 2. Given that $\\mathscr{S}$ satisfies Assumption 1 and that $h(\\pmb{x}, \\pmb{\\xi})$ satisfies Assumption 2 and satisfies the condition of Lemma 1, then problem (10) is a convex optimization problem whose optimal value is finite and equal to $\\Psi(\\pmb{x}, \\gamma_1, \\gamma_2)$. Moreover, problem (10) can be solved to any precision $\\epsilon$ in time polynomial in $\\log (1 / \\epsilon)$ and the size of the problem.\n 3.2 Complexity of the DRSP $$ (\\text{DRSP})\\mathop{\\text{minimize}} \\limits_{\\pmb{x} \\in \\mathscr{X}} \\left(\\max_{F \\in \\mathscr{D}_1} \\mathbb{E}_{F} [h(\\pmb{x}, \\pmb{\\xi})] \\right) \\tag{11} $$\n Assumption 3. The $\\mathscr{X} \\subset \\mathbb{R}^n$ is convex and compact, and it is equipped with an oracle that can for any $\\pmb{x} \\in \\mathbb{R}^n$ either confirm that $\\pmb{x} \\in \\mathscr{X}$ or provide a hyperplane that separates $\\pmb{x}$ from $\\mathscr{X}$ in time polynomial n.\n  Assumption 4. The function $h(\\pmb{x}, \\pmb{\\xi})$ is convex in $\\pmb{x}$. In addition, it is assumed that one can find in polynomial time a subgradient of $h(\\pmb{x}, \\pmb{\\xi})$ in $\\pmb{x}$.\n  Theorem 3. Given that Assumption 1, 2, 3 and 4 hold, then the DRSP model presented in problem (11) can be solved to any precision $\\epsilon$ in time polynomial in $\\log(1 / \\epsilon)$ and the sizes of $\\pmb{x}$ and $\\pmb{\\xi}$.\n The proof idea is to transform the DRSP to the following convex optimization problem, $$ \\begin{aligned} \\mathop{\\text{minimize}}\\limits_{\\mathbf{Q}, \\mathbf{q}, r, t} \\quad \u0026 r + t \\newline \\text{subject to} \\quad \u0026 \\left\\lbrace \\begin{aligned} \u0026 r \\geq h_k(\\pmb{x}, \\pmb{\\xi}) - \\pmb{\\xi}^\\top \\mathbf{Q} \\pmb{\\xi} - \\pmb{\\xi}^\\top \\mathbf{q},\\quad \\forall \\pmb{\\xi} \\in \\mathscr{S}, k \\in \\left\\lbrace 1, …, K\\right\\rbrace, \\newline \u0026 t \\geq (\\gamma_2 \\pmb{\\Sigma}_0 + \\pmb{\\mu}_0 \\pmb{\\mu}_0^\\top ) \\bullet \\mathbf{Q} + \\pmb{\\mu}_0^\\top \\mathbf{q} + \\sqrt{\\gamma_1} | \\pmb{\\Sigma}_0^{1 / 2} (\\mathbf{q} + 2 \\mathbf{Q}\\pmb{\\mu}_0) |, \\newline \u0026 \\mathbf{Q} \\succeq 0 \\newline \u0026 \\pmb{x} \\in \\mathscr{X} \\end{aligned} \\right. \\end{aligned} $$ which can be solved to any precision $\\epsilon$ in time polynomial in $\\log (1 / \\epsilon)$ with ellipsoid method if these assumptions hold.\n4 Conclusion  This paper proposed the moment-based distributional set. And to my best knowledge, it is the first time that such robust stochastic optimization approach is named distributionally robust optimization (DRO). To some extent, it opens the era of DRO. One important thing I get from this paper is that, not all the convex problems are easy to solve. Some problem has no polynomial time algorithm. The problem type discussed in this paper is too general for me. The next week I am going to read a more practical paper.  Reference   Delage, E. and Y. Ye (2010). Distributionally robust optimization under moment uncertainty with application to data-driven problems. Operations Research 58(3), 595–612.   Grotschel, M., L. Lov ́asz, and A. Schrijver (1981). The ellipsoid method and its consequences in combinatorial optimization. Combinatorica 1(2), 169–197.   Scarf, H. (1958). A min-max solution of an inventory problem. Studies in the mathematical theory of inventory and production.  ",
+  "wordCount" : "1518",
+  "inLanguage": "en",
+  "datePublished": "2022-05-20T00:00:00Z",
+  "dateModified": "2022-05-20T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "co2generator"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://co2generator.github.io/posts/opre.1090.0741/delage-2010/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CO2 Generator",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://co2generator.github.io/img/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://co2generator.github.io/" accesskey="h" title="CO2 Generator (Alt + H)">CO2 Generator</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://co2generator.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      PR01-Distributionally Robust Optimization Under Moment Uncertainty
+    </h1>
+    <div class="post-description">
+      Moment-based DRO
+    </div>
+    <div class="post-meta"><span title='2022-05-20 00:00:00 +0000 UTC'>May 20, 2022</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;co2generator
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-background" aria-label="1 Background">1 Background</a></li>
+                <li>
+                    <a href="#2-motivation" aria-label="2 Motivation">2 Motivation</a></li>
+                <li>
+                    <a href="#3-distributionally-robust-stochastic-optimization" aria-label="3 Distributionally Robust Stochastic Optimization">3 Distributionally Robust Stochastic Optimization</a><ul>
+                        
+                <li>
+                    <a href="#31-complexity-of-the-inner-moment-problem" aria-label="3.1 Complexity of the Inner Moment Problem">3.1 Complexity of the Inner Moment Problem</a></li>
+                <li>
+                    <a href="#32-complexity-of-the-drsp" aria-label="3.2 Complexity of the DRSP">3.2 Complexity of the DRSP</a></li></ul>
+                </li>
+                <li>
+                    <a href="#4-conclusion" aria-label="4 Conclusion">4 Conclusion</a></li>
+                <li>
+                    <a href="#reference" aria-label="Reference">Reference</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="1-background">1 Background<a hidden class="anchor" aria-hidden="true" href="#1-background">#</a></h3>
+<p>$$
+\mathop{\text{minimize}}\limits_{\pmb{x} \in \mathscr{X}} \ h(\pmb{x}, \pmb{\xi}) \tag{1}
+$$
+in which, $\mathscr{X}$ is a convex set of feasible solutions and $h(\pmb{x}, \pmb{\xi})$ is a convex cost function in $\pmb{x}$ that depends on some vector of parameters $\pmb{\xi}$. In practice, it is often the case that at the time of optimization, the parameters have not yet been fully resolved.</p>
+<p>If one choose to represent the uncertainty of $\pmb{\xi}$ through a distribution $F$, one can instead resort to minimizing the expected cost. This leads to solving a stochastic program,
+$$
+(\text{SP}) \quad \mathop{\text{minimize}} \limits_{\pmb{x} \in \mathscr{X}} \ \mathbb{E}[h(\pmb{x}, \pmb{\xi})] \tag{2}
+$$</p>
+<p>in which the expectation is taken with respect to the random parameters $\pmb{\xi} \in \mathbb{R}^m$, given that it follows the probability distribution $F$. But unfortunately, although the SP is a convex optimization problem, to solve it one must often resort to Monte Carlo approximation, which can be computationally challenging. A more challenging difficulty is the need to commit to a distribution $F$ given only limited information about the stochastic parameters.</p>
+<p>To address these issues, a robust formulation for SP was proposed by <a href="#R3">Scarf(1958)</a>. In this model, the true distribution $F$ is assumed to be included in a set of probability distributions $\mathscr{D}$. And the objective function is reformulated with respect to he worst case expected cost over the choice of a distribution in this set. This leads to solving the distributionally robust stochastic program,
+$$
+(\text{DRSP}) \quad \mathop{\text{minimize}} \limits_{\pmb{x} \in \mathscr{X}} \left(\max_{F \in \mathscr{D}} \mathbb{E}_{F} [h(\pmb{x}, \pmb{\xi})] \right) \tag{3}
+$$</p>
+<p>in which $\mathbb{E}_F[\cdot]$ is the expectation taken with respect to the random vector $\pmb{\xi}$, given that it follows the probability distribution $F$.</p>
+<h3 id="2-motivation">2 Motivation<a hidden class="anchor" aria-hidden="true" href="#2-motivation">#</a></h3>
+<p>Since the information about the distribution $F$ is limited, it might instead be safer to rely on estimated of the mean $\pmb{\mu}_0$ and covariance matrix $\pmb{\Sigma}_0$ of the random vector.</p>
+<p>However, it is believed that it is rarely the case that one is entirely confident in these estimates. Hence, the authors proposed two hyper-parameters $\gamma_1$ and $\gamma_2$ to quantifying one&rsquo;s confidence in $\pmb{\mu}_0$ and $\pmb{\Sigma}_0$.</p>
+<ul>
+<li>
+<p>For the mean of $\pmb{\xi}$, they assumed that it lies in an ellipsoid of size $\gamma_1$ centered at the estimate $\pmb{\mu}_0$,
+$$
+(\mathbb{E}[\pmb{\xi}] - \pmb{\mu}_0)^\top \pmb{\Sigma}_0^{-1} (\mathbb{E}[\pmb{\xi}] - \pmb{\mu}_0) \leq \gamma_1 \tag{4}
+$$</p>
+</li>
+<li>
+<p>For the covariance of $\pmb{\xi}$, the so-called second-moment is used,
+$$
+\mathbb{E}[(\pmb{\xi} - \pmb{\mu}_0) (\pmb{\xi} - \pmb{\mu}_0)^\top] \preceq \gamma_2 \pmb{\Sigma}_0 \tag{5}
+$$</p>
+</li>
+</ul>
+<p>Totally, the distributional set is formulated as,
+$$
+\mathscr{D}_1 (\mathscr{S}, \pmb{\mu}_0, \pmb{\Sigma}_0, \gamma_1, \gamma_2) =
+\left \lbrace
+\begin{aligned}
+F \in \mathscr{M}  \left|
+\begin{aligned}
+\ &amp; \mathbb{P}(\pmb{\xi} \in \mathscr{S}) = 1 \newline
+&amp; (\mathbb{E}[\pmb{\xi}] - \pmb{\mu}_0)^\top \pmb{\Sigma}_0^{-1} (\mathbb{E}[\pmb{\xi}] - \pmb{\mu}_0) \leq \gamma_1\newline
+&amp; \mathbb{E}[(\pmb{\xi} - \pmb{\mu}_0) (\pmb{\xi} - \pmb{\mu}_0)^\top] \preceq \gamma_2 \pmb{\Sigma}_0
+\end{aligned} \right.
+\end{aligned}\right \rbrace \tag{6}
+$$
+in which $\mathscr{M}$ is the set of probability measures, $\mathscr{S}$ is any closed convex set known to contain the support of $F$.</p>
+<h3 id="3-distributionally-robust-stochastic-optimization">3 Distributionally Robust Stochastic Optimization<a hidden class="anchor" aria-hidden="true" href="#3-distributionally-robust-stochastic-optimization">#</a></h3>
+<p>Consider the following DRSP model under the distributional set $\mathscr{D}_1$,</p>
+<p>$$
+(\text{DRSP}) \quad \mathop{\text{minimize}} \limits_{\pmb{x} \in \mathscr{X}} \left( \max_{F \in \mathscr{D}_1} \mathbb{E}_{F} [h(\pmb{x}, \pmb{\xi})] \right) \tag{7}
+$$
+The authors analyzed the computation complexity of the inner moment problem and addressed the tractable solution method of the whole problem.</p>
+<h4 id="31-complexity-of-the-inner-moment-problem">3.1 Complexity of the Inner Moment Problem<a hidden class="anchor" aria-hidden="true" href="#31-complexity-of-the-inner-moment-problem">#</a></h4>
+<p>Let $\Psi(\pmb{x}, \gamma_1, \gamma_2)$ be the optimal value of the moment problem,
+$$
+\mathop{\text{maximize}} \limits_{F \in \mathscr{D}_1} \quad \mathbb{E}_F[h(\pmb{x}, \pmb{\xi})] \tag{8}
+$$
+It also can be described as the conic linear problem,
+$$
+\begin{aligned}
+\mathop{\text{maximize}}\limits_{F} \quad &amp; \int_{\mathscr{S}} h(\pmb{x}, \pmb{\xi}) dF(\pmb{\xi})  \newline
+\mathop{\text{subject to}} \quad &amp; \left\lbrace
+\begin{aligned}
+&amp; \int_{\mathscr{S}} dF(\pmb{\xi}) = 1, \newline
+&amp; \int_{\mathscr{S}} (\pmb{\xi} - \pmb{\mu}_0) (\pmb{\xi} - \pmb{\mu}_0)^\top dF(\pmb{\xi}) \preceq \gamma_2 \pmb{\Sigma}_0, \newline
+&amp; \int_{\mathscr{S}}
+\begin{bmatrix}
+\pmb{\Sigma}_0 &amp; (\pmb{\xi} - \pmb{\mu}_0) \newline
+(\pmb{\xi} - \pmb{\mu}_0)^\top &amp; \gamma_1
+\end{bmatrix}
+dF(\pmb{\xi}) \succeq 0 \newline
+&amp; F \in \mathscr{M}
+\end{aligned} \right.
+\end{aligned} \tag{9}
+$$</p>
+<blockquote>
+<p><strong>Theorem 1.</strong> For a fixed $\pmb{x} \in \mathbb{R}^n$, suppose that $\gamma_1 \geq 0, \gamma_2 \geq 1, \pmb{\Sigma}_0 \succ 0$, and that $h(\pmb{x}, \pmb{\xi})$ is F-integrable for all $F \in \mathscr{D}_1$. Then $\Psi(\pmb{x}, \gamma_1, \gamma_2)$ must be equal to the optimal value of the problem,</p>
+<p>$$
+\begin{aligned}
+\mathop{\text{minimize}}\limits_{\mathbf{Q}, \mathbf{q}, r, t} \quad &amp; r + t \label{inner-obj}  \newline
+\text{subject to} \quad &amp; \left\lbrace
+\begin{aligned}
+&amp; r \geq h(\pmb{x}, \pmb{\xi}) - \pmb{\xi}^\top \mathbf{Q} \pmb{\xi} - \pmb{\xi}^\top \mathbf{q}, \qquad \forall \pmb{\xi} \in \mathscr{S} \newline
+&amp; t \geq (\gamma_2 \pmb{\Sigma}_0 + \pmb{\mu}_0 \pmb{\mu}_0^\top ) \bullet \mathbf{Q} + \pmb{\mu}_0^\top \mathbf{q} + \sqrt{\gamma_1} | \pmb{\Sigma}_0^{1 / 2} (\mathbf{q} + 2 \mathbf{Q}\pmb{\mu}_0) |, \newline
+&amp; \mathbf{Q} \succeq 0
+\end{aligned} \right. \label{inner-cons}
+\end{aligned} \tag{10}
+$$</p>
+<p>in which $(\pmb{A} \bullet \pmb{B}) $ refers to the Frobenius inner product between matrices, $\mathbf{Q} \in \mathbb{R}^{m \times m}$ is a symmetric matrix, the vector $\mathbf{q} \in \mathbb{R}^m$, and $r, t \in \mathbb{R}$.</p>
+</blockquote>
+<blockquote>
+<p><strong>Lemma 1.</strong>
+(<a href="#R2">Grotschel et al. (1981)</a>) Consider a convex optimization problem of the form,
+$$
+\mathop{\text{minimize}} \limits_{\pmb{z} \in \mathscr{Z}} \ \pmb{c}^\top \pmb{z}
+$$
+with linear objective and convex feasible set $\mathscr{Z}$. Given that the set of optimal solutions is nonempty, the problem can be solved to any precision $\epsilon$ in time polynomial in $\log(1 / \epsilon)$ and in the size of the problem by using ellipsoid method is and only if $\mathscr{Z}$ satisfies the following two conditions:</p>
+<ol>
+<li>for any $\bar{\pmb{z}}$, it can be verified whether $\bar{\pmb{z}} \in \mathscr{Z}$ or not in time polynomial in the dimension of $\pmb{z}$</li>
+<li>for any infeasible $\bar{\pmb{z}}$, a hyperplane that separates $\bar{\pmb{z}}$ from the feasible set $\mathscr{Z}$ can be generated in time polynomial in the dimension of $\pmb{z}$.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>Assumption 1.</strong> The support set $\mathscr{S} \subset \mathbb{R}^m$ is convex and compact, and it is equipped with an oracle that can for any $\pmb{\xi} \in \mathbb{R}^m$ either confirm that $\pmb{\xi} \in \mathscr{S}$ or provide a hyperplane that separates $\pmb{\xi}$ from $\mathscr{S}$ in time polynomial in m.</p>
+</blockquote>
+<blockquote>
+<p><strong>Assumption 2.</strong> The function $h(\pmb{x}, \pmb{\xi})$ has the form $h(\pmb{x}, \pmb{\xi}) = \max_{k \in \left\lbrace 1, &hellip;, K\right\rbrace} h_k(\pmb{x}, \pmb{\xi})$ such that for each $k, h_k(\pmb{x}, \pmb{\xi})$ is concave in $\pmb{\xi}$. In addition, given a pair $(\pmb{x}, \pmb{\xi})$, it is assumed that one can in polynomial time:</p>
+<ol>
+<li>evaluate the value of $h_k(\pmb{x}, \pmb{\xi}) $</li>
+<li>find a supergradient of $h_k(\pmb{x}, \pmb{\xi})$ in $\pmb{\xi}$</li>
+</ol>
+<p>Furthermore, for any $\pmb{x} \in \mathbb{R}^n, \pmb{q} \in \mathbb{R}^m$, and ay positive semidefinite $\mathbf{Q} \in \mathbb{R}^{m \times m}$, the set $\left\lbrace y \in \mathbb{R} | \exists \pmb{\xi} \in \mathscr{S}, y \leq h(\pmb{x}, \pmb{\xi}) - \pmb{q}^\top \pmb{\xi} - \pmb{\xi}^\top \mathbf{Q} \pmb{\xi} \right\rbrace$ is closed.</p>
+</blockquote>
+<blockquote>
+<p><strong>Theorem 2.</strong> Given that $\mathscr{S}$ satisfies Assumption 1 and that $h(\pmb{x}, \pmb{\xi})$ satisfies Assumption 2 and satisfies the condition of Lemma 1, then problem (10) is a convex optimization problem whose optimal value is finite and equal to $\Psi(\pmb{x}, \gamma_1, \gamma_2)$. Moreover, problem (10) can be solved to any precision $\epsilon$ in time polynomial in $\log (1 / \epsilon)$ and the size of the problem.</p>
+</blockquote>
+<h4 id="32-complexity-of-the-drsp">3.2 Complexity of the DRSP<a hidden class="anchor" aria-hidden="true" href="#32-complexity-of-the-drsp">#</a></h4>
+<p>$$
+(\text{DRSP})\mathop{\text{minimize}} \limits_{\pmb{x} \in \mathscr{X}} \left(\max_{F \in \mathscr{D}_1} \mathbb{E}_{F} [h(\pmb{x}, \pmb{\xi})] \right) \tag{11}
+$$</p>
+<blockquote>
+<p><strong>Assumption 3.</strong> The $\mathscr{X} \subset \mathbb{R}^n$ is convex and compact, and it is equipped with an oracle that can for any $\pmb{x} \in \mathbb{R}^n$ either confirm that $\pmb{x} \in \mathscr{X}$ or provide a hyperplane that separates $\pmb{x}$ from $\mathscr{X}$ in time polynomial n.</p>
+</blockquote>
+<blockquote>
+<p><strong>Assumption 4.</strong> The function $h(\pmb{x}, \pmb{\xi})$ is convex in $\pmb{x}$. In addition, it is assumed that one can find in polynomial time a subgradient of $h(\pmb{x}, \pmb{\xi})$ in $\pmb{x}$.</p>
+</blockquote>
+<blockquote>
+<p><strong>Theorem 3.</strong> Given that Assumption 1, 2, 3 and 4 hold, then the DRSP model presented in problem (11) can be solved to any precision $\epsilon$ in time polynomial in $\log(1 / \epsilon)$ and the sizes of $\pmb{x}$ and $\pmb{\xi}$.</p>
+</blockquote>
+<p>The proof idea is to transform the DRSP to the following convex optimization problem,
+$$
+\begin{aligned}
+\mathop{\text{minimize}}\limits_{\mathbf{Q}, \mathbf{q}, r, t} \quad &amp; r + t  \newline
+\text{subject to} \quad &amp; \left\lbrace
+\begin{aligned}
+&amp; r \geq h_k(\pmb{x}, \pmb{\xi}) - \pmb{\xi}^\top \mathbf{Q} \pmb{\xi} - \pmb{\xi}^\top \mathbf{q},\quad \forall \pmb{\xi} \in \mathscr{S}, k \in \left\lbrace 1, &hellip;, K\right\rbrace,  \newline
+&amp; t \geq (\gamma_2 \pmb{\Sigma}_0 + \pmb{\mu}_0 \pmb{\mu}_0^\top ) \bullet \mathbf{Q} + \pmb{\mu}_0^\top \mathbf{q} + \sqrt{\gamma_1} | \pmb{\Sigma}_0^{1 / 2} (\mathbf{q} + 2 \mathbf{Q}\pmb{\mu}_0) |, \newline
+&amp; \mathbf{Q} \succeq 0 \newline
+&amp; \pmb{x} \in \mathscr{X}
+\end{aligned} \right.
+\end{aligned}
+$$
+which can be solved to any precision $\epsilon$ in time polynomial in $\log (1 / \epsilon)$ with ellipsoid method if these assumptions hold.</p>
+<h3 id="4-conclusion">4 Conclusion<a hidden class="anchor" aria-hidden="true" href="#4-conclusion">#</a></h3>
+<ul>
+<li>This paper proposed the moment-based distributional set. And to my best knowledge, it is the first time that such robust stochastic optimization approach is named distributionally robust optimization (DRO). To some extent, it opens the era of DRO.</li>
+<li>One important thing I get from this paper is that, not all the convex problems are easy to solve. Some problem has no polynomial time algorithm.</li>
+<li>The problem type discussed in this paper is too general for me. The next week I am going to read a more practical paper.</li>
+</ul>
+<h3 id="reference">Reference<a hidden class="anchor" aria-hidden="true" href="#reference">#</a></h3>
+<div>
+  <a name="R1"></a>
+    Delage, E. and Y. Ye (2010). Distributionally robust optimization under moment uncertainty with application to data-driven problems. Operations Research 58(3), 595–612.
+</div>
+<div><a name="R2"></a>
+Grotschel, M., L. Lov ́asz, and A. Schrijver (1981). The ellipsoid method and its consequences in combinatorial optimization. Combinatorica 1(2), 169–197.
+</div>
+<div><a name="R3"></a>
+Scarf, H. (1958). A min-max solution of an inventory problem. Studies in the mathematical theory of inventory and production.
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="http://co2generator.github.io/">CO2 Generator</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
