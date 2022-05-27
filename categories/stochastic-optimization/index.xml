@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Stochastic Optimization on CO2 Generator</title>
+    <link>http://co2generator.github.io/categories/stochastic-optimization/</link>
+    <description>Recent content in Stochastic Optimization on CO2 Generator</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://co2generator.github.io/categories/stochastic-optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PR01-Distributionally Robust Optimization Under Moment Uncertainty</title>
+      <link>http://co2generator.github.io/posts/opre.1090.0741/</link>
+      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://co2generator.github.io/posts/opre.1090.0741/</guid>
+      <description>Moment-based DRO</description>
+    </item>
+    
+  </channel>
+</rss>

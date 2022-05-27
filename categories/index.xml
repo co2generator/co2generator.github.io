@@ -5,6 +5,25 @@
     <link>http://co2generator.github.io/categories/</link>
     <description>Recent content in Categories on CO2 Generator</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://co2generator.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://co2generator.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deterministic Optimization</title>
+      <link>http://co2generator.github.io/categories/deterministic-optimization/</link>
+      <pubDate>Fri, 27 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://co2generator.github.io/categories/deterministic-optimization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stochastic Optimization</title>
+      <link>http://co2generator.github.io/categories/stochastic-optimization/</link>
+      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://co2generator.github.io/categories/stochastic-optimization/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

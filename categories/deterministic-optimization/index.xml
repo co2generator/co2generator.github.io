@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Deterministic Optimization on CO2 Generator</title>
+    <link>http://co2generator.github.io/categories/deterministic-optimization/</link>
+    <description>Recent content in Deterministic Optimization on CO2 Generator</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://co2generator.github.io/categories/deterministic-optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints</title>
+      <link>http://co2generator.github.io/posts/trsc.2014.0582/</link>
+      <pubDate>Fri, 27 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://co2generator.github.io/posts/trsc.2014.0582/</guid>
+      <description>Pulse Algorithm for ESPPRC</description>
+    </item>
+    
+  </channel>
+</rss>

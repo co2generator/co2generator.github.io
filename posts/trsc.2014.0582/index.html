@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints | CO2 Generator</title>
+<meta name="keywords" content="Shortest Path Problem">
+<meta name="description" content="Pulse Algorithm for ESPPRC">
+<meta name="author" content="co2generator">
+<link rel="canonical" href="http://co2generator.github.io/posts/trsc.2014.0582/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.ec8da366ca2fb647537ccb7a8f6fa5b4e9cd3c7a0d3171dd2d3baad1e49c8bfc.css" integrity="sha256-7I2jZsovtkdTfMt6j2&#43;ltOnNPHoNMXHdLTuq0eSci/w=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://co2generator.github.io/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://co2generator.github.io/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://co2generator.github.io/img/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://co2generator.github.io/img/apple-touch-icon.png">
+<link rel="mask-icon" href="http://co2generator.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  <script type="text/javascript">
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+    },
+  };
+</script>
+<script
+    async
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"
+    integrity="sha384-+BSz3oj3ILMYvOBr16U9i0H4RZRmGyQQ+1q9eqr8T3skmAFrJk8GmgwgqlCZdNSo"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+<meta property="og:title" content="PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints" />
+<meta property="og:description" content="Pulse Algorithm for ESPPRC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://co2generator.github.io/posts/trsc.2014.0582/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-27T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-05-27T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints"/>
+<meta name="twitter:description" content="Pulse Algorithm for ESPPRC"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://co2generator.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints",
+      "item": "http://co2generator.github.io/posts/trsc.2014.0582/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints",
+  "name": "PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints",
+  "description": "Pulse Algorithm for ESPPRC",
+  "keywords": [
+    "Shortest Path Problem"
+  ],
+  "articleBody": "1 Background The Elementary Shortest Path Problem with Resource Constraints (ESPPRC) is NP-hard in the strong sense and often arises as the backbone of the branch-and-price procedure. Ac- celerating the solution of the ESPPRC is a critical aspect for improving the performance of column-generation based algorithms. The ESPPRC has been widely studied,\n  Desrochers et al. (1992) solved a relaxed version that allows cycles with a dynamic pro- gramming.\n  Feillet et al. (2004) proposed the first exact approach for the ESPPRC.\n  Righini and Salani (2008) proposed a bidirectional labeling algorithm for the ESPPRC that\nrelies on a state-space relaxation.\n  Lozano et al. (2016) proposed an novel exact method which performs well when compared against SOTA algorithms for the ESPPRC.\nIn this report, the motivation, overview and details of the algorithm (Pulse Algorithm) proposed by Lozano et al. (2016) are reported.\n  2 Motivation \u0026 Overview Definition 1. Pulse Propagation refers to the recursive exploration of partial paths that are extended until they reach the end node or are discarded by a pruning strategy.\nThe pulse algorithm relies on implicit enumeration with a novel bounding scheme that dra- matically narrows the search space. Specifically, for ESPPRC, the pulse algorithm comprises two stages:\n  a bounding stage that finds lower bounds on the cost given an amount of resource consumed.\n  a recursive exploration stage that finds an optimal solution based on an implicit enumeration\nof the solution space.\n  The exploration is triggered by sending a pulse from the start node $v_s \\in \\mathscr{N}$. The pulse tries to propagate throughout the outgoing arcs of each visited node, storing at each node the partial path $\\mathscr{P}$, the cumulative reduced cost $r(\\mathscr{P})$, the cumulative capacity consumption $q(\\mathscr{P})$, and the cumulative time consumption $t(\\mathscr{P})$.\nAt each node different pruning strategies try to stop the pulse propagation, aggressively pruning the search space. Ever pulse that reaches the final node $v_e \\in \\mathscr{N}$ contains all of the information of a feasible paths $\\mathscr{P}$ from $v_s$ to $v_e$. The pseudo-code is shown below,\n The pseudo-code of pulse procedure is shown below,\n Every time the pulse procedure is invoked on the final node $v_e$, the information for the best-known path $\\mathscr{P}^*$ is updated, the pulse stops its propagation, and the algorithm backtracks to propagate other pulses recursively.\n\\qquad Clearly, line 2 and line 3 play the role of pruning. And it is worth highlighting that every time that a pulse is pruned, a whole entire region of the solution space is discarded. Thus, the algorithm’s performance is strongly linked to the strength of the pruning strategies and their ability to prune pules at early stages of the exploration.\n3 Pruning Strategies As shown in Algorithm 3, there are three pruning strategies.\n Use structural constraints to prune infeasible solutions Use primal and lower bounds to prune suboptimal solutions Use a look-back mechanism to discard suboptimal partial paths  The first pruning strategy is straightforward (check time window, capacity and cycle constraints). The second is critically important. The pseudo-code is shown below,\n The third one is also important. The behind idea is very simple. One of the main drawbacks of depth-first search is that poor decisions made at early stages of the exploration can lead to the exploration of unpromising regions of the search space.\nConsider a partial path $\\mathscr{P}_{si}$ from $v_s$ to $v_i$ that is extended to node $v_k$ and then reaches node $v_j$ as follow,\n Let $\\mathscr{P}^\\prime_{sj} = \\mathscr{P}_{si} \\cup \\left\\lbrace v_j\\right\\rbrace$, then clearly it can be proved that $\\mathscr{P}_{sj}$ can be dominated by $\\mathscr{P}^\\prime_{sj}$.\n4 Conclusion  The pulse algorithm is very similar to the traditional labeling algorithm. The difference is the pulse algorithm explores the graph in a depth-first manner, while the labeling algorithm follow a lexicographic breadth-first search. The pulse algorithm also can be seen as a branch and bound where each node corresponds to an elementary partial path. Another big difference is the pulse algorithm doesn’t need to handle a long list ordered labels. And it heavily relies on additional pruning strategies.  Reference   [1] Desrochers, M., J. Desrosiers, and M. Solomon (1992). A new optimization algorithm for the vehicle routing problem with time windows. Operations research 40(2), 342–354.   [2] Feillet, D., P. Dejax, M. Gendreau, and C. Gueguen (2004). An exact algorithm for the elementary shortest path problem with resource constraints: Application to some vehicle routing problems. Networks: An International Journal 44(3), 216–229.   [3] Lozano, L., D. Duque, and A. L. Medaglia (2016). An exact algorithm for the elementary shortest path problem with resource constraints. Transportation Science 50(1), 348–357.   [4] Righini, G. and M. Salani (2008). New dynamic programming algorithms for the resource con- strained elementary shortest path problem. Networks: An International Journal 51(3), 155– 170.  ",
+  "wordCount" : "775",
+  "inLanguage": "en",
+  "datePublished": "2022-05-27T00:00:00Z",
+  "dateModified": "2022-05-27T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "co2generator"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://co2generator.github.io/posts/trsc.2014.0582/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CO2 Generator",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://co2generator.github.io/img/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://co2generator.github.io/" accesskey="h" title="CO2 Generator (Alt + H)">CO2 Generator</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://co2generator.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://co2generator.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      PR02-An Exact Algorithm for the Elmentary Shortest Path Problem with Resource Constraints
+    </h1>
+    <div class="post-description">
+      Pulse Algorithm for ESPPRC
+    </div>
+    <div class="post-meta"><span title='2022-05-27 00:00:00 +0000 UTC'>May 27, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;co2generator
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-background" aria-label="1 Background">1 Background</a></li>
+                <li>
+                    <a href="#2-motivation--overview" aria-label="2 Motivation &amp;amp; Overview">2 Motivation &amp; Overview</a></li>
+                <li>
+                    <a href="#3-pruning-strategies" aria-label="3 Pruning Strategies">3 Pruning Strategies</a></li>
+                <li>
+                    <a href="#4-conclusion" aria-label="4 Conclusion">4 Conclusion</a></li>
+                <li>
+                    <a href="#reference" aria-label="Reference">Reference</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="1-background">1 Background<a hidden class="anchor" aria-hidden="true" href="#1-background">#</a></h3>
+<p>The Elementary Shortest Path Problem with Resource Constraints (ESPPRC) is NP-hard in the strong sense and often arises as the backbone of the branch-and-price procedure. Ac- celerating the solution of the ESPPRC is a critical aspect for improving the performance of column-generation based algorithms. The ESPPRC has been widely studied,</p>
+<ul>
+<li>
+<p><a href="#R1">Desrochers et al. (1992)</a> solved a relaxed version that allows cycles with a dynamic pro- gramming.</p>
+</li>
+<li>
+<p><a href="#R2">Feillet et al. (2004)</a> proposed the first exact approach for the ESPPRC.</p>
+</li>
+<li>
+<p><a href="#R4">Righini and Salani (2008)</a> proposed a bidirectional labeling algorithm for the ESPPRC that</p>
+<p>relies on a state-space relaxation.</p>
+</li>
+<li>
+<p><a href="#R3">Lozano et al. (2016)</a> proposed an novel exact method which performs well when compared against SOTA algorithms for the ESPPRC.</p>
+<p>In this report, the motivation, overview and details of the algorithm (Pulse Algorithm) proposed by <a href="#R3">Lozano et al. (2016)</a> are reported.</p>
+</li>
+</ul>
+<h3 id="2-motivation--overview">2 Motivation &amp; Overview<a hidden class="anchor" aria-hidden="true" href="#2-motivation--overview">#</a></h3>
+<p><strong>Definition 1.</strong> <em><strong>Pulse Propagation</strong></em> refers to the recursive exploration of partial paths that are extended until they reach the end node or are discarded by a pruning strategy.</p>
+<p>The pulse algorithm relies on implicit enumeration with a novel bounding scheme that dra- matically narrows the search space. Specifically, for ESPPRC, the pulse algorithm comprises two stages:</p>
+<ul>
+<li>
+<p>a bounding stage that finds lower bounds on the cost given an amount of resource consumed.</p>
+</li>
+<li>
+<p>a recursive exploration stage that finds an optimal solution based on an implicit enumeration</p>
+<p>of the solution space.</p>
+</li>
+</ul>
+<p>The exploration is triggered by sending a pulse from the start node $v_s \in \mathscr{N}$. The pulse tries to propagate throughout the outgoing arcs of each visited node, storing at each node the partial path $\mathscr{P}$, the cumulative reduced cost $r(\mathscr{P})$, the cumulative capacity consumption $q(\mathscr{P})$, and the cumulative time consumption $t(\mathscr{P})$.</p>
+<p>At each node different pruning strategies try to stop the pulse propagation, aggressively pruning the search space. Ever pulse that reaches the final node $v_e \in \mathscr{N}$ contains all of the information of a feasible paths $\mathscr{P}$ from $v_s$ to $v_e$. The pseudo-code is shown below,</p>
+<div align="center">
+  <img src="./alg1.png" width="100%">
+</div>
+<p>The pseudo-code of pulse procedure is shown below,</p>
+<div align="center">
+  <img src="./alg2.png" width="100%">
+</div>
+<p>Every time the pulse procedure is invoked  on the final node $v_e$, the information for the best-known path $\mathscr{P}^*$ is updated, the pulse stops its propagation, and the algorithm backtracks to propagate other pulses recursively.</p>
+<p>\qquad Clearly, line 2 and line 3 play the role of pruning. And it is worth highlighting that every time that a pulse is pruned, a whole entire region of the solution space is discarded. Thus, the algorithm&rsquo;s performance is strongly linked to the strength of the pruning strategies and their ability to prune pules at early stages of the exploration.</p>
+<h3 id="3-pruning-strategies">3 Pruning Strategies<a hidden class="anchor" aria-hidden="true" href="#3-pruning-strategies">#</a></h3>
+<p>As shown in <a href="">Algorithm 3</a>, there are three pruning strategies.</p>
+<ul>
+<li>Use structural constraints to prune infeasible solutions</li>
+<li>Use primal and lower bounds to prune suboptimal solutions</li>
+<li>Use a look-back mechanism to discard suboptimal partial paths</li>
+</ul>
+<p>The first pruning strategy is straightforward (check time window, capacity and cycle constraints). The second is critically important.  The pseudo-code is shown below,</p>
+<div align="center">
+  <img src="./alg3.png">
+</div>
+<p>The third one is also important. The behind idea is very simple. One of the main drawbacks of depth-first search is that poor decisions made at early stages of the exploration can lead to the exploration of unpromising regions of the search space.</p>
+<p>Consider a partial path $\mathscr{P}_{si}$ from $v_s$ to $v_i$ that is extended to node $v_k$ and then reaches node $v_j$ as follow,</p>
+<div align="center">
+  <img src="./rollback.png">
+</div>
+<p>Let $\mathscr{P}^\prime_{sj} = \mathscr{P}_{si} \cup \left\lbrace v_j\right\rbrace$, then clearly it can be proved that $\mathscr{P}_{sj}$ can be dominated by  $\mathscr{P}^\prime_{sj}$.</p>
+<h3 id="4-conclusion">4 Conclusion<a hidden class="anchor" aria-hidden="true" href="#4-conclusion">#</a></h3>
+<ul>
+<li>The pulse algorithm is very similar to the traditional labeling algorithm.</li>
+<li>The difference is the pulse algorithm explores the graph in a depth-first manner, while the labeling algorithm follow a lexicographic breadth-first search.</li>
+<li>The pulse algorithm also can be seen as a branch and bound where each node corresponds to an elementary partial path.</li>
+<li>Another big difference is the pulse algorithm doesn&rsquo;t need to handle a long list ordered labels. And it heavily relies on additional pruning strategies.</li>
+</ul>
+<h3 id="reference">Reference<a hidden class="anchor" aria-hidden="true" href="#reference">#</a></h3>
+<div>
+  <a name="R1"></a>
+    [1] Desrochers, M., J. Desrosiers, and M. Solomon (1992). A new optimization algorithm for the vehicle routing problem with time windows. Operations research 40(2), 342–354.
+</div>
+<div><a name="R2"></a>
+[2] Feillet, D., P. Dejax, M. Gendreau, and C. Gueguen (2004). An exact algorithm for the elementary shortest path problem with resource constraints: Application to some vehicle routing problems. Networks: An International Journal 44(3), 216–229.
+</div>
+<div><a name="R3"></a>
+[3] Lozano, L., D. Duque, and A. L. Medaglia (2016). An exact algorithm for the elementary shortest path problem with resource constraints. Transportation Science 50(1), 348–357.
+</div>
+<div><a name="R4"></a>
+[4] Righini, G. and M. Salani (2008). New dynamic programming algorithms for the resource con- strained elementary shortest path problem. Networks: An International Journal 51(3), 155– 170.
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://co2generator.github.io/tags/shortest-path-problem/">Shortest Path Problem</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://co2generator.github.io/posts/opre.1090.0741/">
+    <span class="title">Next »</span>
+    <br>
+    <span>PR01-Distributionally Robust Optimization Under Moment Uncertainty</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="http://co2generator.github.io/">CO2 Generator</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
