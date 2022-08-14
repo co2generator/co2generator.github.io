@@ -6,7 +6,16 @@
     <description>Recent content in Tags on CO2 Generator</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://co2generator.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://co2generator.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Memory</title>
+      <link>http://co2generator.github.io/tags/memory/</link>
+      <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://co2generator.github.io/tags/memory/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Shortest Path Problem</title>
       <link>http://co2generator.github.io/tags/shortest-path-problem/</link>
