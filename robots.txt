@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://co2generator.github.io/sitemap.xml
