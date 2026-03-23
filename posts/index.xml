@@ -6,7 +6,16 @@
     <description>Recent content in Posts on CO2 Generator</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://co2generator.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://co2generator.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RENO | 上下文分布鲁棒优化与局部学习</title>
+      <link>https://co2generator.github.io/posts/reno.2026.0323/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://co2generator.github.io/posts/reno.2026.0323/</guid>
+      <description>research notes</description>
+    </item>
+    
     <item>
       <title>STNO | 如何让OpenClaw整理每日新闻简报？</title>
       <link>https://co2generator.github.io/posts/stno.2026.0316/</link>
@@ -23,15 +32,6 @@
       
       <guid>https://co2generator.github.io/posts/stno.2026.0310/</guid>
       <description>study notes</description>
-    </item>
-    
-    <item>
-      <title>RENO | 上下文分布鲁棒优化与局部学习</title>
-      <link>https://co2generator.github.io/posts/reno.2026.0323/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      
-      <guid>https://co2generator.github.io/posts/reno.2026.0323/</guid>
-      <description>research notes</description>
     </item>
     
     <item>
