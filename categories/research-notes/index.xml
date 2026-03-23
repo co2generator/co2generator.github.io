@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Research Notes on CO2 Generator</title>
+    <link>https://co2generator.github.io/categories/research-notes/</link>
+    <description>Recent content in Research Notes on CO2 Generator</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://co2generator.github.io/categories/research-notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RENO | 上下文分布鲁棒优化与局部学习</title>
+      <link>https://co2generator.github.io/posts/reno.2026.0323/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://co2generator.github.io/posts/reno.2026.0323/</guid>
+      <description>research notes</description>
+    </item>
+    
+  </channel>
+</rss>
