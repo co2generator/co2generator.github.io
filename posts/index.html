@@ -13,11 +13,14 @@
 基本思想：
 对于当前上下文 $x$，在历史数据集中找到与其“最相似”的 $k$ 个样本，仅使用这 $k$ 个样本来进行建模。
 具体做法:
-定义距离度量 对上下文特征空间定义一个距离函数，例如欧氏距离： $$ d(x, x_i) = \lVert x - x_i\rVert_2 $$
-选择邻居 在历史样本 ${x_i}_{i=1}^N$ 中，选取距离当前 $x$ 最近的 $k$ 个样本，记为集合 $\mathcal{N}_k(x)$。
-构建经验分布 仅基于这 $k$ 个样本构建经验分布： $$ \hat{\mathbb{P}}k = \frac{1}{k} \sum{i \in \mathcal{N}k(x)} \delta{\xi_i} $$
+定义距离度量
+对上下文特征空间定义一个距离函数，例如欧氏距离： $$ d(x, x_i) = \lVert x - x_i\rVert_2 $$
+选择邻居
+在历史样本 $\lbrace x_i \rbrace_{i=1}^N$ 中，选取距离当前 $x$ 最近的 $k$ 个样本，记为集合 $\mathcal{N}_k(x)$。
+构建经验分布
+仅基于这 $k$ 个样本构建经验分布： $$ \hat{\mathbb{P}}_k = \frac{1}{k} \sum_{i \in \mathcal{N}_k(x)} \delta_{\xi_i} $$
 特点与理解：
-本质是一个**硬选择（hard selection）**方法：要么被选中，要么被忽略 能很好捕捉局部结构和分布变化 对参数 $k$ 较为敏感： $k$ 太小 → 方差大（不稳定） $k$ 太大 → 退化为全局方法 1....</p></div><footer class=entry-footer><div class=post-meta>March 23, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to RENO-001 | 上下文分布鲁棒优化与局部学习" href=https://co2generator.github.io/posts/reno.2026.0323/></a></article><article class=post-entry><header class=entry-header><h2>STNO-003 | 如何让OpenClaw整理每日新闻简报？</h2></header><div class=entry-content><p>今天吃饭的时候突然想起了多年前的一件事：和一个朋友聊天时说，想实现一个助手能根据设置的分类，每天早上自动整理新闻展示给我。这样一来，就能很方便的看到各种感兴趣的新闻。转眼已经过去十多年，时光匆匆……
+本质是一个硬选择（hard selection）方法：要么被选中，要么被忽略 能很好捕捉局部结构和分布变化 对参数 $k$ 较为敏感： $k$ 太小 → 方差大（不稳定） $k$ 太大 → 退化为全局方法 1....</p></div><footer class=entry-footer><div class=post-meta>March 23, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to RENO-001 | 上下文分布鲁棒优化与局部学习" href=https://co2generator.github.io/posts/reno.2026.0323/></a></article><article class=post-entry><header class=entry-header><h2>STNO-003 | 如何让OpenClaw整理每日新闻简报？</h2></header><div class=entry-content><p>今天吃饭的时候突然想起了多年前的一件事：和一个朋友聊天时说，想实现一个助手能根据设置的分类，每天早上自动整理新闻展示给我。这样一来，就能很方便的看到各种感兴趣的新闻。转眼已经过去十多年，时光匆匆……
 前段时间在树莓派上部署了OpenClaw，于是想能否让他帮忙完成这件事，于是就有了这篇学习笔记。下图展示了2026-03-17的新闻简报：
 1 每日新闻简报 1.1 news-summary news-summary是一个用于获取新闻更新、每日简报或全球动态的OpenClaw Skill。他通过自动抓取新闻，做摘要，然后输出“每日简报”。其总体流水线如下：
 1 2 3 4 5 6 7 8 9 RSS feeds ↓ 抓取新闻 ↓ 抽取标题 + 内容 ↓ LLM总结 ↓ 输出结构化结果 1.2 newspaper-brief newpaper-brief是一个把“长文本”变成“手机友好的视觉内容”的OpenClaw Skill。其总体流水线如下：
