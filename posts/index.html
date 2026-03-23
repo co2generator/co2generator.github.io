@@ -4,7 +4,7 @@
 &nbsp;|&nbsp;
 <a href=/categories/study-notes/>study notes</a>
 &nbsp;|&nbsp;
-<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息的数据驱动鲁棒优化。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
+<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息分布鲁棒优化（Contextual DRO, CDRO）。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
 本周，我重点回顾了基于局部学习（local learning）的上下文鲁棒优化方法。其核心思想是：只利用“与当前情境相似”的历史样本来刻画不确定性，而不是对所有历史数据一视同仁。
 1 局部学习 局部学习（Local Learning）是一类基于“相似性”的方法，其核心思想是：
 在进行预测或估计时，优先利用与当前输入更接近的样本，而不是使用全部数据。
@@ -13,7 +13,7 @@
 基本思想：
 对于当前上下文 $x$，在历史数据集中找到与其“最相似”的 $k$ 个样本，仅使用这 $k$ 个样本来进行建模。
 具体做法:
-定义距离度量 对上下文特征空间定义一个距离函数，例如欧氏距离： $$ d(x, x_i) = |x - x_i|_2 $$
+定义距离度量 对上下文特征空间定义一个距离函数，例如欧氏距离： $$ d(x, x_i) = \lVert x - x_i\rVert_2 $$
 选择邻居 在历史样本 ${x_i}_{i=1}^N$ 中，选取距离当前 $x$ 最近的 $k$ 个样本，记为集合 $\mathcal{N}_k(x)$。
 构建经验分布 仅基于这 $k$ 个样本构建经验分布： $$ \hat{\mathbb{P}}k = \frac{1}{k} \sum{i \in \mathcal{N}k(x)} \delta{\xi_i} $$
 特点与理解：
