@@ -4,7 +4,13 @@
 &nbsp;|&nbsp;
 <a href=/categories/study-notes/>study notes</a>
 &nbsp;|&nbsp;
-<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息分布鲁棒优化（Contextual DRO, CDRO）。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
+<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>STNO-004 | Claude Code的安装与Minimax的配置</h2></header><div class=entry-content><p>这周尝试了一下Claude Code，记录一下安装和Minimax M2.7的配置过程。
+1 Claude Code安装 Requirements:
+Mac OS 10.15+, Win 10+, Ubuntu 20.04+ Node.js v18.0+ Git 1.1 安装Node.js 直接在Terminal中使用brew安装node，或去官网下载安装。安装完成后，查看版本号（确保不低于18.0 )
+1 node -v 1.2 安装Claude Code 在Terminal中通过npm下载安装，
+1 npm install -g @anthropic-ai/claude-code 安装完成后，查看claude code版本号，以检查是否安装成功
+1 claude --version 2 Minimax M2.7配置 2.1 编辑或创建 Claude Code 的配置文件 在用户目录下的./claude中编辑或者新建一个settings.json，写入如下内容
+1 2 3 4 5 6 7 8 9 10 11 12 13 { "env": { "ANTHROPIC_BASE_URL": "https://api.minimaxi.com/anthropic", "ANTHROPIC_AUTH_TOKEN": "MINIMAX_API_KEY", "API_TIMEOUT_MS": "3000000", "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1, "ANTHROPIC_MODEL": "MiniMax-M2....</p></div><footer class=entry-footer><div class=post-meta>March 31, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to STNO-004 | Claude Code的安装与Minimax的配置" href=https://co2generator.github.io/posts/stno.2026.0331/></a></article><article class=post-entry><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息分布鲁棒优化（Contextual DRO, CDRO）。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
 本周，我重点回顾了基于局部学习（local learning）的上下文鲁棒优化方法。其核心思想是：只利用“与当前情境相似”的历史样本来刻画不确定性，而不是对所有历史数据一视同仁。
 1 局部学习 局部学习（Local Learning）是一类基于“相似性”的方法，其核心思想是：
 在进行预测或估计时，优先利用与当前输入更接近的样本，而不是使用全部数据。

@@ -6,7 +6,16 @@
     <description>Recent content in Study Notes on CO2 Generator</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://co2generator.github.io/categories/study-notes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://co2generator.github.io/categories/study-notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>STNO-004 | Claude Code的安装与Minimax的配置</title>
+      <link>https://co2generator.github.io/posts/stno.2026.0331/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://co2generator.github.io/posts/stno.2026.0331/</guid>
+      <description>study notes</description>
+    </item>
+    
     <item>
       <title>STNO-003 | 如何让OpenClaw整理每日新闻简报？</title>
       <link>https://co2generator.github.io/posts/stno.2026.0316/</link>
