@@ -4,7 +4,7 @@
 &nbsp;|&nbsp;
 <a href=/categories/study-notes/>study notes</a>
 &nbsp;|&nbsp;
-<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>RENO-002 | 网约车派单算法与多智能体强化学习</h2></header><div class=entry-content><p>本周写一篇学习笔记，阐述滴滴派单算法背后的核心思想，展示一种以运筹优化（Operations Research & Mathematical Programming）为核心的 AI 视角，从而拓宽对AI的理解，避免局限在传统Machine Learning/Deep Learning的“桎梏”中。
+<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>RENO-002 | 网约车派单算法与多智能体强化学习</h2></header><div class=entry-content><p>本周写一篇科研笔记，阐述滴滴派单算法背后的核心思想，展示一种以运筹优化（Operations Research & Mathematical Programming）为核心的 AI 视角，从而拓宽对AI的理解，避免局限在传统Machine Learning/Deep Learning的“桎梏”中。
 (a) Ride-hailing vehicle clustering (b) Dispatching difficulty ​ 网约车平台的核心问题之一是，如何把订单分配给合适的司机？这一过程被称为Order Dispatching（派单）。派单效果会直接影响用户等待时间，司机收入，平台成交率，用户体验等。
 ​ 解决派单问题，一种非常直接的思路是：最近司机接最近订单。但这种贪心策略过于短视（myopic），有时会造成供给侧接不到单（如图a）或需求侧打不到车（如图b）。其本质原因在于，当前的决策会影响未来的供需结构。因此，在进行派单时，不仅要考虑当前收益，还需要考虑未来影响。
 1 打车流程回顾 用户侧：
