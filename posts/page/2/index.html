@@ -4,7 +4,20 @@
 &nbsp;|&nbsp;
 <a href=/categories/study-notes/>study notes</a>
 &nbsp;|&nbsp;
-<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>STNO-001 | 树莓派上部署OpenClaw</h2></header><div class=entry-content><p>做不动科研的时候总是喜欢干点其他有趣的事，给自己充充电。最近，小龙虾（OpenClaw）大火。由于不想污染工作环境，于是翻出吃灰已久的树莓派，准备将小龙虾部署在其上。
+<a href=/categories/research-notes/>research notes</a></p></div><article class=post-entry><header class=entry-header><h2>STNO-002 | Zotero-MCP的安装和使用</h2></header><div class=entry-content><p>本文是Zotero-MCP的安装和使用笔记。最近几天将组里几个同学的zotero文献做了一个汇总，消除了重复的条目、补全了文献的pdf附件，花了不少时间和精力。为了让这个整理更有价值，希望能接入LLM并实现语义搜索，于是学习了一下如何使用Zotero-MCP。
+Zotero-MCP安装 安装教程可以参考Zotero-MCP的Github仓库，在安装之前需要先明确以下依赖项：
+Python 3.10+ Zotero 7+ MCP客户端（比如Claude Desktop，Cherry Studio等） 第一步，使用pip进行zotero-mcp-server安装
+1 pip install zotero-mcp-server 并等待程序下载和安装所需的python包，
+第二步，使用Auto-configure进行配置，
+1 zotero-mcp setup 自动完成一些设置后，开始在terimnal中手动选择以设置语义搜索（Semantic Search）
+Note: 为什么需要语义搜索？Zotero中采用的是关键词搜索，无法从语义层面理解文献。然而，有时我们需要通过自然语言进行搜索。Zotero-MCP中提供了语义搜索能力，其原理是对元数据或全文进行分块（chunk），然后用词嵌入（embedding）模型对这些分块文本进行 “编码”，得到每个分块的语义向量并存入向量数据库。每一个向量表示对应分块文本在语义空间中的位置。如果两个文本语义相近，那么他们在空间中“距离”越近。这种距离可以采用余弦值表达。在搜索时，提问被采用相同的方式进行嵌入而得到一个向量，通过这个向量与向量数据库中存储的向量两两计算余弦值，匹配出top-K距离最近的文本。于是，就可以得到符合搜索语句语义的内容。
+包括以下内容：
+可用的embedding模型，选择默认的all-MinLM-L6-v2。也可以选择OpenAI的付费embedding模型 向量数据库更新配置，选择每N天。也可以选择手动更新或其他 （若选择每N天更新）选择更新频率，输入30 内容抽取设置和数据库存储路径可以选择默认 第三步，进行向量数据库的初始化
+1 2 3 4 5 # Build the semantic search database (fast, metadata-only) zotero-mcp update-db # Build with full-text extraction (slower, more comprehensive) zotero-mcp update-db --fulltext Note: 在进行此步骤之前，请确保Zotero已经打开，并在Settings->Advanced中允许其他应用通讯
+至此，Zotero-MCP完成安装。
+Cherry Studio配置 Zotero-MCP提供了一个MCP Server，要使用LLM还需要一个MCP Client。Zotero-MCP主推的是Claude Desktop，但是因为只能使用Claude模型，所以有一些封闭。相比之下，Cherry Studio可以设置不同LLM，是更好的选择。以下以DeepSeek为例，介绍设置过程。
+第一步，在DeepSeek开放平台充值并创建API。
+第二步，在Cherry Studio中Settings -> Model Provider，设置DeepSeek API Key。...</p></div><footer class=entry-footer><div class=post-meta>March 10, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to STNO-002 | Zotero-MCP的安装和使用" href=https://co2generator.github.io/posts/stno.2026.0310/></a></article><article class=post-entry><header class=entry-header><h2>STNO-001 | 树莓派上部署OpenClaw</h2></header><div class=entry-content><p>做不动科研的时候总是喜欢干点其他有趣的事，给自己充充电。最近，小龙虾（OpenClaw）大火。由于不想污染工作环境，于是翻出吃灰已久的树莓派，准备将小龙虾部署在其上。
 1 一键部署 官方推荐使用QuickStart进行交互式安装，在Terminal中输入
 1 curl -fsSL https://openclaw.ai/install.sh | bash ​ 这个脚本会先检测本地是否安装 Node.js和Git，然后就会通过npm下载最新版的OpenClaw并安装。进入安装引导程序后，按步骤和提示选择进行配置。若想进行手动安装，可以参考这篇CSDN博客。
 ​ 安装完成后，如下图所示。
