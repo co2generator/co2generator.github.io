@@ -8,7 +8,14 @@
 为订单用户搜索附近可用司机 预测接驾时间 评估不同匹配方案 完成订单分配 ​ 现实中的派单并不是“订单一来立刻派单”，而通常采用Batch Dispatch（批量派单），即：每隔几秒钟收集一批订单和司机，统一进行优化匹配。
 2 派单问题的数学模型 ​ 对于每一个batch，记用户数量为J，可用司机数量为I，派单问题可以用如下二部图（Bipartite graph）表示
 其中，左侧节点是用户，右侧节点是司机，边表示对应派单决策。同时，每条边带有一个“价值”。
-记$$x_{i,j}=1$$表示用户j指派给司机i。因此，为最大化总体收益，上述派单问题可以建模为 $$ \begin{align} \max_{\pmb{x}} \quad & \sum_{i = 1}^{I}\sum_{j=1}^{J} w_{i,j} x_{i,j} \ s.t. \quad & \sum_{j=1}^{J} x_{i,j} \leq 1，&& \forall i \in [I] \ & \sum_{i=1}^{I} x_{i,j} \leq 1, && \forall j \in [J] \ & x_{i,j} \in {0,1}, && \forall i \in [I], j \in [J] \end{align} $$ 其中，约束（2）表示每位司机至多接一个用户。约束（3）表示每位用户至多被指派给一个司机。...</p></div><footer class=entry-footer><div class=post-meta>May 23, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to RENO-002 | 网约车派单算法与多智能体强化学习" href=https://co2generator.github.io/posts/reno.2026.0523/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息分布鲁棒优化（Contextual DRO, CDRO）。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
+记$x_{i,j}=1$表示用户j指派给司机i。因此，为最大化总体收益，上述派单问题可以建模为
+其中，约束（2）表示每位司机至多接一个用户。约束（3）表示每位用户至多被指派给一个司机。
+Remark 1:
+这个问题很有意思，表面上看其决策变量是binary的（离散），并不容易求解。而实际上，这个问题约束的系数矩阵具有全单模性（Total Unimodularity），直接求解其线性规划松弛就等价于求解原来的离散优化问题。
+Remark 2:
+在早期的系统中，$w_{i,j}=-\text{pickup distance}$，即基于最小化接送距离进行派单。后来慢慢加入了订单价格、等待时间，变成$w_{i,j}=\lambda_1 \cdot \text{fare} -\lambda_2 \cdot \text{pickup distance} - \lambda_3 \cdot \text{waiting time}$。但随着系统运行，越来越发现无论怎么调整这些系数，总是会出现某些区域订单很多而司机不足，或者某些区域订单很少而司机非常多。其本质原因在于模型过于短视，只考虑当前最优，而忽略了当前派单决策会直接影响未来的司机分布。
+3 多智能体强化学习 Motivation：平台的目标是最大化长期收益。在实时运行中，由于当前派单决策会影响未来司机分布，如果能直接用一个模型来预测每条边对应的长期价值，那么似乎问题就解决了。
+3.1 前处理 基于六边形网格，对城市空间位置进行离散化...</p></div><footer class=entry-footer><div class=post-meta>May 23, 2026 · co2generator</div></footer><a class=entry-link aria-label="post link to RENO-002 | 网约车派单算法与多智能体强化学习" href=https://co2generator.github.io/posts/reno.2026.0523/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>RENO-001 | 上下文分布鲁棒优化与局部学习</h2></header><div class=entry-content><p>近些年来，分布鲁棒优化（Distributionally Robust Optimization, DRO）与数据科学的结合发展迅速，尤其是在如何利用历史数据构建更具表达能力的不确定集这一问题上，出现了大量新思路。其中，一类非常重要的方法是基于上下文信息分布鲁棒优化（Contextual DRO, CDRO）。这类方法不再假设所有历史样本同分布，而是尝试根据当前环境（如天气、时间、区域等）筛选“更相关”的历史数据，从而构建更精细的分布刻画。
 本周，我重点回顾了基于局部学习（local learning）的上下文鲁棒优化方法。其核心思想是：只利用“与当前情境相似”的历史样本来刻画不确定性，而不是对所有历史数据一视同仁。
 1 局部学习 局部学习（Local Learning）是一类基于“相似性”的方法，其核心思想是：
 在进行预测或估计时，优先利用与当前输入更接近的样本，而不是使用全部数据。
